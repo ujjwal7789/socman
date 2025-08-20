@@ -1,0 +1,2 @@
+# socman
+Society Management System
