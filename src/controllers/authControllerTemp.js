@@ -1,7 +1,7 @@
 // controllers/authController.js
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import User from "../models/User.js"; // We'll define User model soon
+import User from "../models/User.js"; 
 
 // Generate JWT
 const generateToken = (id) => {
