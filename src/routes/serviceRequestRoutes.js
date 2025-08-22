@@ -1,12 +1,13 @@
 // routes/serviceRequestRoutes.js
 import express from "express";
 import protect from "../middleware/authMiddleware.js";
+import authorize from "../middleware/roleMiddleware.js";
 import serviceRequest from "../models/serviceRequest.js";
 
 const router = express.Router();
 
-// Create a new service request
-router.post("/", protect, async (req, res) => {
+// Resident: create request
+router.post("/", protect, authorize("Resident"), async (req, res) => {
   const { description } = req.body;
 
   try {
@@ -20,8 +21,8 @@ router.post("/", protect, async (req, res) => {
   }
 });
 
-// Get all service requests by the logged-in user
-router.get("/my", protect, async (req, res) => {
+// Resident: view own requests
+router.get("/my", protect, authorize("Resident"), async (req, res) => {
   try {
     const requests = await serviceRequest.find({ requestedBy: req.user._id });
     res.json(requests);
@@ -30,8 +31,8 @@ router.get("/my", protect, async (req, res) => {
   }
 });
 
-// Admin view: all requests (later we can add role-based auth)
-router.get("/", protect, async (req, res) => {
+// Admin: view all requests
+router.get("/", protect, authorize("Admin"), async (req, res) => {
   try {
     const requests = await serviceRequest.find().populate("requestedBy", "name email");
     res.json(requests);

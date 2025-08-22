@@ -3,6 +3,9 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from './routes/userRoute.js';
+import noticeRoutes from './routes/noticeRoutes.js';
+import serviceRequestRoutes from './routes/serviceRequestRoutes.js';
+import visitorRoutes from './routes/visitorRoutes.js';
 
 dotenv.config();
 connectDB();
